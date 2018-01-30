@@ -10,6 +10,7 @@
   firebase.initializeApp(config);
 $("#start").hide();
 function startGame(name){
+    $("#nameData").hide();
     $("#start").show();
     let players = [];
     let turn = 1;
@@ -85,6 +86,7 @@ database.ref("/playerData").on("child_added", function(child){
 
 function reset(){
     OpponentWins = 0;
+    $("#nameData").show();
     $("#opponentInfo").html("<h3>" + opponentName + " Wins: " + OpponentWins +"</h3>");
     $("#opponentInfo").text("Waiting on second player");
     database.ref("/playerData/" + name).set({wins:0, losses:0})

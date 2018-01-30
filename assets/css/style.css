@@ -1,0 +1,18 @@
+#start{
+    margin-top:2em;
+    float:left;
+    clear:after;
+    
+}
+.container{
+    width:80%;
+    margin:auto;
+}
+.col-3{
+    width:33.3%;
+    float:left;
+}
+#nameData{
+    float:left;
+    clear:after;
+}

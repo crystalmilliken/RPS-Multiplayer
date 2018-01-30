@@ -8,8 +8,9 @@
     messagingSenderId: "880959834398"
   };
   firebase.initializeApp(config);
-
+$("#start").hide();
 function startGame(name){
+    $("#start").show();
     let players = [];
     let turn = 1;
     let database = firebase.database();
@@ -65,7 +66,15 @@ connections.once("value", function(snapConnections){
 //     //     }
 //     })
 // })
-
+database.ref("/playerData").on("value", function(userInfo){
+    userInfo.forEach(function (k){
+        if(k.key !== name){
+            console.log(k.val().wins)
+            OpponentWins = k.val().wins;
+            $("#opponentInfo").html("<h3>" + opponentName + " Wins: " + OpponentWins +"</h3>");
+        }
+    })
+})
 database.ref("/playerData").on("child_added", function(child){
     let testOpponentName = child.key
      if(testOpponentName !== name){
@@ -73,12 +82,10 @@ database.ref("/playerData").on("child_added", function(child){
         $("#opponentInfo").html("<h3>" + opponentName + " Wins: " + OpponentWins +"</h3>");
     }
 })
-database.ref("/playerData").on("child_removed", function (snap){
-        console.log("someone logged out");
-        reset();
-   
-});
+
 function reset(){
+    OpponentWins = 0;
+    $("#opponentInfo").html("<h3>" + opponentName + " Wins: " + OpponentWins +"</h3>");
     $("#opponentInfo").text("Waiting on second player");
     database.ref("/playerData/" + name).set({wins:0, losses:0})
     connections.once("value", function(snapConnections){
@@ -106,6 +113,11 @@ function reset(){
     database.ref("/gamestatus").set({game:"disconnected"});
 
 }
+database.ref("/playerData").on("child_removed", function (snap){
+        console.log("someone logged out");
+        reset();
+   
+});
 function createUser(name){
       let userInfoConnection = database.ref("/playerData/" + name);
       userInfoConnection.set({wins:0,losses:0});
@@ -159,31 +171,37 @@ database.ref("/choices").on("value", function(compareChoices){
         }
         })
             if(opponentChoice === currentChoice){
-                database.ref("/results").set({results: "Tie!"});
+                database.ref("/results").set({results:currentChoice + " ties with " + opponentChoice});
                 ties++;
                 returnResult()
             }
             else if(currentChoice === "Rock" && opponentChoice === "Scissors"){
-                database.ref("/results").set({results:name + "wins!!"});
+                database.ref("/results").set({results:currentChoice + " beats " + opponentChoice});
                 OpponentLosses++;
                 wins++;
+                $("#thisplayerInfo").html("<h3>" + name + " Wins: " + wins +"</h3>");
+                
                 database.ref("/playerData/" + name).set({wins:wins, losses:losses})
                 returnResult();
             }else if(currentChoice === "Scissors" && opponentChoice === "Paper"){
-                database.ref("/results").set({results:name + "wins!!"});
+                database.ref("/results").set({results:currentChoice + " beats " + opponentChoice});
                 wins++;
                 OpponentLosses++;
-                database.ref("/playerData/" + name).set({wins:wins, losses:losses})
+                $("#thisplayerInfo").html("<h3>" + name + " Wins: " + wins +"</h3>");
+               
+                database.ref("/playerData/" + name).set({wins:wins, losses:losses});
                 returnResult();
             }else if(currentChoice === "Paper" && opponentChoice === "Rock"){
-                database.ref("/results").set({results:name + "wins!!"});
+                database.ref("/results").set({results:currentChoice + " beats " + opponentChoice});
                 OpponentLosses++;
                 wins++;
+                $("#thisplayerInfo").html("<h3>" + name + " Wins: " + wins +"</h3>");
+                
                 database.ref("/playerData/" + name).set({wins:wins, losses:losses})
                 returnResult();
             }
             
-        
+        $("#opponentInfo").html("<h3>" + opponentName + " Wins: " + OpponentWins +"</h3>");
         database.ref("/choices").set({});
         currentChoice ="";
     }

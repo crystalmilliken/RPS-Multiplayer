@@ -17,22 +17,31 @@
     <div id="playerInfo"></div>
     <div id="turnLabel"></div>
     <div id="userData"></div>
-    <label for"name">Name</label>
-    <input type="text" id="name">
-    <button id="submitName">Start</button>
-    <div id="start">
-        <div id="buttonGroup">
-        <button class="choice">Rock</button>
-        <button class="choice">Paper</button>
-        <button class="choice">Scissors</button>
+    
+    <div id="nameData">
+        <label for"name">Name</label>
+        <input type="text" id="name">
+    <button id="submitName">Start</button></div>
+    
+    <div id="start" class="container">
+        <div id="buttonGroup" class="col-3">
+            <button class="choice">Rock</button>
+            <button class="choice">Paper</button>
+            <button class="choice">Scissors</button>
         </div>
-        <div id="thisplayerInfo"></div>
-        <div id="opponentInfo"></div>
-        <label for="chatBox">Chat Away!<label>
-        <input type="text" id="chatBox">
-        <button id="submitChat">Say what you mean</button>
-        <div id="chatWindow"></div>
-        <button id="reset">Restart</button>
+        <div id="score" class="col-3">
+            <div id="thisplayerInfo"></div>
+            <div id="opponentInfo"></div>
+        </div>
+        <div id="chatDiv" class="col-3">
+            <label for="chatBox">Chat Away!<label>
+            <input type="text" id="chatBox">
+            <button id="submitChat">Say what you mean</button>
+            <div id="chatWindow"></div>
+        </div>
+    </div>
+    <div class="container">
+    <button id="reset" >Restart</button>
         <div id="results"></div>
     </div>
     <script src="assets/javascript/game.js"></script>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <h1>Make Your Choice...</h1>
+    <div id="playerInfo"></div>
+    <div id="turnLabel"></div>
+    <label for"name">Name</label>
+    <input type="text" id="name">
+    <button id="submitName">Start</button>
+    <div id="start">
+        <div id="buttonGroup">
+        <button class="choice">Rock</button>
+        <button class="choice">Paper</button>
+        <button class="choice">Scissors</button>
+        </div>
+        <div id="thisplayerInfo"></div>
+        <div id="opponentInfo"></div>
+        <label for="chatBox">Chat Away!<label>
+        <input type="text" id="chatBox">
+        <button id="submitChat">Say what you mean</button>
+        <div id="chatWindow"></div>
+        <button id="reset">Restart</button>
+        <div id="results"></div>
+    </div>
+    <script src="assets/javascript/game.js"></script>
+</body>
+</html>

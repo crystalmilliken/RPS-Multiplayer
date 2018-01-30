@@ -8,10 +8,9 @@
     messagingSenderId: "880959834398"
   };
   firebase.initializeApp(config);
-$("#start").hide();
+$(".choice").attr('disabled','disabled');
 function startGame(name){
     $("#nameData").hide();
-    $("#start").show();
     let players = [];
     let turn = 1;
     let database = firebase.database();
@@ -134,9 +133,9 @@ database.ref("/turn").on("value", function(snapshot){
        turn = snapshot.val().turn;
        $("#turnLabel").text("It's player " + turn +"'s turn");
           if(turn === playerturn){
-              $("#buttonGroup").show();
+              $(".choice").removeAttr('disabled');
           }else{
-              $("#buttonGroup").hide();
+              $(".choice").attr('disabled','disabled');
           }      
   })
 function returnResult(){
@@ -175,34 +174,27 @@ database.ref("/choices").on("value", function(compareChoices){
             if(opponentChoice === currentChoice){
                 database.ref("/results").set({results:currentChoice + " ties with " + opponentChoice});
                 ties++;
-                returnResult()
             }
             else if(currentChoice === "Rock" && opponentChoice === "Scissors"){
                 database.ref("/results").set({results:currentChoice + " beats " + opponentChoice});
                 OpponentLosses++;
                 wins++;
                 $("#thisplayerInfo").html("<h3>" + name + " Wins: " + wins +"</h3>");
-                
-                database.ref("/playerData/" + name).set({wins:wins, losses:losses})
-                returnResult();
+                database.ref("/playerData/" + name).set({wins:wins, losses:losses});
             }else if(currentChoice === "Scissors" && opponentChoice === "Paper"){
                 database.ref("/results").set({results:currentChoice + " beats " + opponentChoice});
                 wins++;
                 OpponentLosses++;
                 $("#thisplayerInfo").html("<h3>" + name + " Wins: " + wins +"</h3>");
-               
                 database.ref("/playerData/" + name).set({wins:wins, losses:losses});
-                returnResult();
             }else if(currentChoice === "Paper" && opponentChoice === "Rock"){
                 database.ref("/results").set({results:currentChoice + " beats " + opponentChoice});
                 OpponentLosses++;
                 wins++;
                 $("#thisplayerInfo").html("<h3>" + name + " Wins: " + wins +"</h3>");
-                
-                database.ref("/playerData/" + name).set({wins:wins, losses:losses})
-                returnResult();
+                database.ref("/playerData/" + name).set({wins:wins, losses:losses});
             }
-            
+         returnResult();   
         $("#opponentInfo").html("<h3>" + opponentName + " Wins: " + OpponentWins +"</h3>");
         database.ref("/choices").set({});
         currentChoice ="";
@@ -231,4 +223,3 @@ $("#opponentInfo").html("<h4>Waiting on Opponent</h4>");
       startGame(thisPlayerName);
   }
 $("#submitName").on("click", submitName)
-// startGame();

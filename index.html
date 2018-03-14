@@ -36,19 +36,24 @@
         <div id="score" class="col-3">
             <div id="thisplayerInfo"></div>
             <div id="opponentInfo"></div>
+            <button id="reset" >Restart</button>
         </div>
-        <div id="chatDiv" class="col-3">
-            <label for="chatBox">Chat Away!<label>
-            <input type="text" id="chatBox">
-            <button id="submitChat">Say what you mean</button>
-            <div id="chatWindow"></div>
-        </div>
+        
     </div>
    
     <div class="container">
-    <button id="reset" >Restart</button>
+    <div class="col-3">
+        <h2>The Verdict...</h2>
         <div id="results"></div>
     </div>
+        <div id="chatDiv" class="col-3">
+             <input type="text" id="chatBox">
+            <button id="submitChat">Say what you mean</button>
+            <div id="chatWindow"></div>
+        </div>
+        
+    </div>
+    
     <script src="assets/javascript/game.js"></script>
 </body>
 </html>
